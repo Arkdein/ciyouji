@@ -1,0 +1,82 @@
+[
+ {
+  "id": "s1",
+  "num": 1,
+  "cn": "个人成长与心理素质",
+  "en": "Personal Growth & Resilience",
+  "short": "Growth & Resilience",
+  "tip": "高频出现于RC2反思类文本与议论文Q1/Q2主题；口试常以「你如何面对挫折」类问题切入，宜准备一段可即兴调整的个人经历。"
+ },
+ {
+  "id": "s2",
+  "num": 2,
+  "cn": "人际关系与家庭",
+  "en": "Relationships & Family",
+  "short": "Relationships & Family",
+  "tip": "是Q2/Q3记叙文「误会化解」固定叙事弧的核心词汇来源；也常见于听力篇章的家庭/邻里对话情境。"
+ },
+ {
+  "id": "s3",
+  "num": 3,
+  "cn": "社区生活与邻里精神",
+  "en": "Community & Neighbourliness",
+  "short": "Community Life",
+  "tip": "口试话题的重灾区（小贩中心、组屋壁画、邻里守望相助）；写作时可作为「社区认同」类论点的具体举证。"
+ },
+ {
+  "id": "s4",
+  "num": 4,
+  "cn": "科技与数码生活",
+  "en": "Technology & Digital Life",
+  "short": "Tech & Digital Life",
+  "tip": "综合填空常考「科技双面性」相关搭配词；议论文Q4常以「科技利弊」为题，宜掌握「妥善」「依赖」等词的正反语境用法。"
+ },
+ {
+  "id": "s5",
+  "num": 5,
+  "cn": "环境与永续发展",
+  "en": "Environment & Sustainability",
+  "short": "Environment",
+  "tip": "综合填空高频主题（海洋垃圾、二手经济）；Q4政策类作文常与「条规 vs 教育」框架搭配，宜熟悉政策类动词搭配。"
+ },
+ {
+  "id": "s6",
+  "num": 6,
+  "cn": "传统文化与现代化",
+  "en": "Tradition, Heritage & Modernity",
+  "short": "Heritage & Modernity",
+  "tip": "RC1「新旧对比」标志性文类的核心词汇库；写作时常用于开头点题或结尾升华，强调传承与认同感。"
+ },
+ {
+  "id": "s7",
+  "num": 7,
+  "cn": "公民意识与社会政策",
+  "en": "Civic Duty & Social Policy",
+  "short": "Civic & Policy",
+  "tip": "Q4政策性作文与口试SG-specific话题（SGSecure、客工融入）的核心词库；宜掌握「立法」「意识」等书面语搭配。"
+ },
+ {
+  "id": "s8",
+  "num": 8,
+  "cn": "职场、经济与劳动力",
+  "en": "Work, Career & Economic Life",
+  "short": "Work & Career",
+  "tip": "常与Q4「灵活工作制」「机器人取代人力」等政策/科技交叉题材搭配；RC1常见小本经营/创业类比较文本。"
+ },
+ {
+  "id": "s9",
+  "num": 9,
+  "cn": "教育、青少年与乐龄课题",
+  "en": "Education, Youth & Ageing",
+  "short": "Education & Ageing",
+  "tip": "口试「学生领袖经验」「阅读风气」类话题的核心词库；亦是Q4「终身学习」「乐龄宜居城市」政策题的常用词源。"
+ },
+ {
+  "id": "idiom",
+  "num": 10,
+  "cn": "成语库",
+  "en": "Idiom Bank",
+  "short": "Idiom Bank",
+  "tip": "50则成语均取自历年A水准考卷原文（综合填空词库、阅读理解二近义词题等），可直接用于议论文论证或记叙文情节转折处，展现更高阶的语言运用能力。"
+ }
+]
