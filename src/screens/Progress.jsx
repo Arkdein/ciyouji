@@ -30,7 +30,7 @@ export function Progress() {
     const blob = new Blob([JSON.stringify(getState())], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = `h1词汇通-备份-${isoFromDay(today)}.json`;
+    a.download = `词游记-备份-${isoFromDay(today)}.json`;
     a.click();
     setTimeout(() => URL.revokeObjectURL(a.href), 2000);
     setBackupMsg('已下载备份文件。 Backup file downloaded.');

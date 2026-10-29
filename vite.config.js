@@ -11,9 +11,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['icons/*.png', 'icons/icon.svg', 'config.json', 'audio/manifest.json'],
       manifest: {
-        name: 'H1词汇通 H1 Chinese Vocabulary Studio',
-        short_name: 'H1词汇通',
-        description: 'H1 Chinese (8655) topical vocabulary practice',
+        name: '词游记 H1 Chinese Word Journey',
+        short_name: '词游记',
+        description: 'H1 Chinese (8655) vocabulary journey',
         lang: 'zh-Hans',
         start_url: './',
         scope: './',

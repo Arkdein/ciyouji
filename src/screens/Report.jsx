@@ -41,7 +41,7 @@ export function Report() {
         <a href="#/progress" class="small">← 返回 Back</a>
       </div>
       <div class="page-head">
-        <h1>H1词汇通　学习进度报告</h1>
+        <h1>词游记　学习进度报告</h1>
         <div class="en">Progress report · {sum.date}</div>
       </div>
 

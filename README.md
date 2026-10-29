@@ -1,6 +1,6 @@
-# H1词汇通 · H1 Chinese Vocabulary Studio
+# 词游记 · Word Journey (H1 Chinese 8655)
 
-A free, installable web app for H1 Chinese (SEAB 8655) topical vocabulary and idioms: 635 entries across nine topical strands plus an idiom bank, spaced-repetition practice, exam-style cloze and typed questions, listening dictation, and short news snippets (original summaries of real 联合早报 reports).
+词游记 is a free, installable web app that turns H1 Chinese (SEAB 8655) vocabulary into a journey: nine topical strands plus the idiom bank become stops on a map, and secure words earn a stamp. It covers topical vocabulary and idioms: 635 entries across nine topical strands plus an idiom bank, spaced-repetition practice, exam-style cloze and typed questions, listening dictation, and short news snippets (original summaries of real 联合早报 reports).
 
 Everything runs in the student's browser. There is no server, no account and no AI at run time.
 
@@ -15,7 +15,7 @@ Everything runs in the student's browser. There is no server, no account and no 
 
 ## Deploy (once)
 
-1. Create a new **public** repository on GitHub (e.g. `h1-vocab`). Free GitHub Pages requires a public repo.
+1. Create a new **public** repository on GitHub (e.g. `ciyouji`). Free GitHub Pages requires a public repo.
 2. Push this folder to the `main` branch.
 3. In the repo: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 4. Wait for the *Deploy to GitHub Pages* action (Actions tab). Your site is at `https://<username>.github.io/<repo>/`.

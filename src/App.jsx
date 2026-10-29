@@ -11,7 +11,7 @@ import { Progress } from './screens/Progress.jsx';
 import { Report } from './screens/Report.jsx';
 
 const NAV = [
-  { name: 'home', href: '#/', icon: 'home', cn: '今日', en: 'Today' },
+  { name: 'home', href: '#/', icon: 'home', cn: '行程', en: 'Trip' },
   { name: 'words', href: '#/words/s1', icon: 'book', cn: '词汇库', en: 'Word bank' },
   { name: 'news', href: '#/news/s1', icon: 'news', cn: '时事', en: 'News' },
   { name: 'progress', href: '#/progress', icon: 'chart', cn: '进度', en: 'Progress' },
@@ -40,8 +40,11 @@ export function App() {
     <div class="shell">
       <aside class="rail">
         <div class="brand">
-          <div class="name">词汇通</div>
-          <div class="sub">H1 Chinese · 8655</div>
+          <div class="mark" aria-hidden="true">词</div>
+          <div>
+            <div class="name">词游记</div>
+            <div class="sub">Word Journey</div>
+          </div>
         </div>
         <nav class="nav" aria-label="主导航 Main">
           {NAV.map((n) => (

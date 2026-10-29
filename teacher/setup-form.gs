@@ -1,5 +1,5 @@
 /**
- * H1词汇通 – one-click Google Form + Sheet for class progress.
+ * 词游记 – one-click Google Form + Sheet for class progress.
  *
  * HOW TO USE (about 3 minutes, done once, signed in as the teacher):
  *   1. Go to script.google.com → New project → paste this whole file.
@@ -34,8 +34,8 @@ var FIELDS = [
 ];
 
 function setupForm() {
-  var form = FormApp.create('H1词汇通 – class progress');
-  form.setDescription('Submitted automatically from the H1词汇通 app. Students do not need to open this form.');
+  var form = FormApp.create('词游记 – class progress');
+  form.setDescription('Submitted automatically from the 词游记 app. Students do not need to open this form.');
   form.setCollectEmail(false);
   form.setAllowResponseEdits(false);
   form.setLimitOneResponsePerUser(false);
@@ -46,7 +46,7 @@ function setupForm() {
   });
 
   // Response sheet
-  var ss = SpreadsheetApp.create('H1词汇通 – class progress (responses)');
+  var ss = SpreadsheetApp.create('词游记 – class progress (responses)');
   form.setDestination(FormApp.DestinationType.SPREADSHEET, ss.getId());
 
   // Work out entry IDs by building a pre-filled link with a marker in every field.

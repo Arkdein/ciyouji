@@ -153,7 +153,7 @@ function SessionRun({ mode, strand, onAgain }) {
             </>
           ) : (
             <>
-              <h1>练习完成</h1>
+              <h1>本程完成</h1>
               <p class="soft">Session complete. {pct >= 80 ? '稳！ Solid work.' : pct >= 50 ? '有进步，错的词会再出现。 Misses will come back.' : '错的词会再出现，多练几次就熟了。 Misses will come back; that is how they stick.'}</p>
               <div class="stats3">
                 <div><b class="tnum">{total}</b><span>题目 Answers</span></div>

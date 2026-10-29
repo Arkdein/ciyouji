@@ -59,7 +59,7 @@ a { color: var(--ink); }
 /* ============ Shell ============ */
 .shell { display: grid; grid-template-columns: 232px 1fr; min-height: 100vh; }
 .rail { position: sticky; top: 0; height: 100vh; background: var(--surface); border-right: 1px solid var(--line); display: flex; flex-direction: column; padding: 22px 0 16px; }
-.brand { padding: 0 20px 18px; border-bottom: 1px solid var(--line); }
+.brand { padding: 0 20px 18px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 12px; }
 .brand .name { font-family: var(--font-display); font-size: 26px; color: var(--ink-strong); letter-spacing: 0.03em; line-height: 1.1; }
 .brand .sub { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-soft); margin-top: 4px; }
 .nav { display: flex; flex-direction: column; padding: 12px 0; gap: 2px; flex: 1; }
@@ -152,11 +152,8 @@ a { color: var(--ink); }
 .streak-row { display: flex; align-items: baseline; gap: 8px; }
 .streak-row b { font-size: 30px; font-family: var(--font-display); font-weight: 400; color: var(--gold); line-height: 1; }
 .streak-row .icon { color: var(--gold); font-size: 22px; align-self: center; }
-.map { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
 .tile { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 13px 14px 12px; display: flex; flex-direction: column; gap: 9px; box-shadow: var(--shadow); }
 .tile .top { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
-.tile .idx { width: 24px; height: 24px; border-radius: 5px; background: var(--ink); color: var(--surface); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.tile .idx.idiom { background: var(--seal); }
 .tile .nm { font-weight: 600; font-size: 14px; line-height: 1.25; }
 .tile .nm small { display: block; font-weight: 400; font-size: 11px; color: var(--text-soft); }
 .tile .foot { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--text-soft); }
@@ -291,3 +288,40 @@ a { color: var(--ink); }
 }
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+/* ============ 词游记 journey theme ============ */
+/* Faint map contours behind everything, tinted by the theme ink so it works in both themes. */
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: var(--ink); opacity: 0.06;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360' viewBox='0 0 360 360' fill='none' stroke='black' stroke-width='1.2'%3E%3Cpath d='M0 50C90 20 270 90 360 50'/%3E%3Cpath d='M0 110C100 70 250 150 360 110'/%3E%3Cpath d='M0 175C70 150 290 205 360 175'/%3E%3Cpath d='M0 240C110 205 240 275 360 240'/%3E%3Cpath d='M0 305C80 280 280 335 360 305'/%3E%3Cellipse cx='240' cy='140' rx='46' ry='18' transform='rotate(-12 240 140)'/%3E%3Cellipse cx='240' cy='140' rx='22' ry='8' transform='rotate(-12 240 140)'/%3E%3Cellipse cx='90' cy='270' rx='40' ry='15' transform='rotate(10 90 270)'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360' viewBox='0 0 360 360' fill='none' stroke='black' stroke-width='1.2'%3E%3Cpath d='M0 50C90 20 270 90 360 50'/%3E%3Cpath d='M0 110C100 70 250 150 360 110'/%3E%3Cpath d='M0 175C70 150 290 205 360 175'/%3E%3Cpath d='M0 240C110 205 240 275 360 240'/%3E%3Cpath d='M0 305C80 280 280 335 360 305'/%3E%3Cellipse cx='240' cy='140' rx='46' ry='18' transform='rotate(-12 240 140)'/%3E%3Cellipse cx='240' cy='140' rx='22' ry='8' transform='rotate(-12 240 140)'/%3E%3Cellipse cx='90' cy='270' rx='40' ry='15' transform='rotate(10 90 270)'/%3E%3C/svg%3E");
+  -webkit-mask-size: 360px; mask-size: 360px;
+}
+@media print { body::before { display: none; } }
+
+.brand .mark { width: 40px; height: 40px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-radius: 7px; background: var(--seal); color: var(--surface); font-family: var(--font-display); font-size: 24px; transform: rotate(-4deg); box-shadow: inset 0 0 0 2px var(--seal), inset 0 0 0 3.5px var(--surface); }
+.brand .name { font-size: 28px; letter-spacing: 0.06em; }
+.page-head h1 { font-size: 34px; letter-spacing: 0.04em; }
+
+/* Route: stops joined by a dashed trail; finished legs turn solid mint. */
+.route { list-style: none; margin: 0; padding: 0; max-width: 760px; }
+.stop { display: grid; grid-template-columns: 56px 1fr; gap: 14px; position: relative; padding-bottom: 16px; }
+.stop::before { content: ''; position: absolute; left: 27px; top: 30px; bottom: -30px; border-left: 2px dashed var(--line-strong); }
+.stop:last-child::before { display: none; }
+.stop.done::before { border-left: 2px solid var(--mint-strong); }
+.stop .node { display: flex; justify-content: center; align-items: flex-start; position: relative; z-index: 1; padding-top: 4px; }
+.stop .pin { width: 34px; height: 34px; margin-top: 8px; border-radius: 50%; background: var(--bg); border: 2px solid var(--line-strong); color: var(--text-soft); font-weight: 700; font-size: 14px; display: flex; align-items: center; justify-content: center; }
+.stop.begun .pin { border-color: var(--gold); color: var(--gold); }
+.stop.here .pin { background: var(--gold); border-color: var(--gold); color: var(--surface); box-shadow: 0 0 0 5px color-mix(in srgb, var(--gold) 24%, transparent); }
+.stop .stamp { width: 54px; height: 54px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--seal); background: var(--bg); border: 2px solid var(--seal); box-shadow: inset 0 0 0 3px var(--bg), inset 0 0 0 4.5px var(--seal); transform: rotate(-9deg); font-family: var(--font-display); }
+.stop .stamp b { font-weight: 400; font-size: 14px; line-height: 1.1; letter-spacing: 0.04em; }
+.stop .tile { min-width: 0; }
+.stop.here .tile { border-color: var(--gold); }
+.stop .tile .top { flex-wrap: wrap; justify-content: space-between; align-items: flex-start; }
+.stop .nm { font-size: 15px; }
+.stop .leg { display: block; font-style: normal; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-soft); font-weight: 600; margin-bottom: 1px; }
+.here-tag { display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 20px; font-size: 11.5px; font-weight: 600; color: var(--gold); background: color-mix(in srgb, var(--gold) 14%, transparent); border: 1px solid color-mix(in srgb, var(--gold) 40%, transparent); }
+.stop.dest .tile { border-style: dashed; box-shadow: none; background: transparent; }
+.stop.dest .flag { width: 36px; height: 36px; margin-top: 8px; border-radius: 50%; background: var(--mint-strong); color: var(--on-accent); display: flex; align-items: center; justify-content: center; font-size: 18px; }
+@media (max-width: 420px) { .stop { grid-template-columns: 46px 1fr; gap: 10px; } .stop::before { left: 22px; } .stop .stamp { width: 46px; height: 46px; } .stop .stamp b { font-size: 12px; } .stop .pin { width: 30px; height: 30px; } }
