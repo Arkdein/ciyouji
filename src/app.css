@@ -236,15 +236,20 @@ a { color: var(--ink); }
 }
 
 /* ============ News ============ */
-.news-list { display: flex; flex-direction: column; gap: 16px; }
-.news { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; box-shadow: var(--shadow); }
-.news h2 { font-size: 20px; color: var(--ink-strong); display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-.news h2 small { font-family: var(--font-body); font-size: 12px; color: var(--text-soft); font-style: italic; }
-.news .body { margin-top: 10px; font-size: 15.5px; line-height: 2.05; text-align: justify; max-width: 66ch; }
-.news mark { background: var(--good-bg); color: var(--mint-strong); border: none; border-bottom: 1.5px dotted var(--mint-strong); font: inherit; font-weight: 700; padding: 0 2px; border-radius: 3px; cursor: pointer; }
-.news .cite { margin-top: 10px; font-size: 11.5px; color: var(--text-soft); word-break: break-word; }
-.news .tip { margin-top: 10px; font-size: 13px; color: var(--text-soft); background: var(--surface-2); border-left: 3px solid var(--gold); border-radius: 7px; padding: 9px 12px; line-height: 1.65; }
-.news .tip b { color: var(--text); }
+.wk { font-family: var(--font-body); font-size: 12px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-soft); font-weight: 700; margin: 0 0 10px; }
+.picks { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 12px; }
+.pick { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.pick .meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.pick .src { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: var(--surface-2); color: var(--ink); }
+.pick .src.zb { background: color-mix(in srgb, var(--seal) 14%, transparent); color: var(--seal); }
+.pick .src.e8 { background: color-mix(in srgb, var(--gold) 16%, transparent); color: var(--gold); }
+.pick .src.cna { background: var(--good-bg); color: var(--mint-strong); }
+.pick .tag { font-size: 11px; color: var(--text-soft); text-decoration: none; border: 1px solid var(--line); border-radius: 20px; padding: 1px 8px; }
+.pick h2 { font-size: 19px; line-height: 1.4; }
+.pick h2 a { color: var(--ink-strong); text-decoration: none; }
+.pick h2 a:hover { text-decoration: underline; }
+.pick .hook { margin: 0; font-size: 14px; line-height: 1.7; }
+.pick .hook.en { font-size: 12.5px; color: var(--text-soft); font-style: italic; line-height: 1.5; }
 .sheet { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: #1d3444; color: #fff; border-top: 1px solid rgba(255,255,255,0.15); padding: 16px 20px calc(16px + env(safe-area-inset-bottom)); border-radius: 16px 16px 0 0; box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.3); display: flex; flex-direction: column; gap: 4px; }
 .sheet .in { max-width: 640px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 4px; }
 .sheet .hw { font-family: var(--font-display); font-size: 24px; display: flex; align-items: center; gap: 10px; }

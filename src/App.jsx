@@ -15,7 +15,7 @@ const NAV = [
   { name: 'home', href: '#/', icon: 'home', cn: '行程', en: 'Trip' },
   { name: 'words', href: '#/words/s1', icon: 'book', cn: '词汇库', en: 'Word bank' },
   { name: 'write', href: '#/write', icon: 'pen', cn: '书写', en: 'Write' },
-  { name: 'news', href: '#/news/s1', icon: 'news', cn: '时事', en: 'News' },
+  { name: 'news', href: '#/news', icon: 'news', cn: '时事', en: 'News' },
   { name: 'progress', href: '#/progress', icon: 'chart', cn: '进度', en: 'Progress' },
 ];
 

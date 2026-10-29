@@ -1,6 +1,6 @@
 # 词游记 · Word Journey (H1 Chinese 8655)
 
-词游记 is a free, installable web app that turns H1 Chinese (SEAB 8655) vocabulary into a journey: nine topical strands plus the idiom bank become stops on a map, and secure words earn a stamp. It covers topical vocabulary and idioms: 635 entries across nine topical strands plus an idiom bank, spaced-repetition practice, exam-style cloze and typed questions, listening dictation, and short news snippets (original summaries of real 联合早报 reports).
+词游记 is a free, installable web app that turns H1 Chinese (SEAB 8655) vocabulary into a journey: nine topical strands plus the idiom bank become stops on a map, and secure words earn a stamp. It covers topical vocabulary and idioms: 635 entries across nine topical strands plus an idiom bank, spaced-repetition practice, exam-style cloze and typed questions, listening dictation, and a weekly teacher-approved list of local news links.
 
 Everything runs in the student's browser. There is no server, no account and no AI at run time.
 
@@ -40,7 +40,7 @@ npm run build      # outputs dist/
 ## Editing content
 
 - `src/data/vocab.json`: entries `{id, t:"w"|"i", s:"s1".."s9"|"idiom", tier, w, py, cn, en, ex}`.
-- `src/data/news.json`: snippets. Keep them **paraphrased** with a source line. Do not paste article text.
+- The News tab reads a teacher-approved list of links from a published Google Sheet (see `teacher/news-feed.md`). Nothing about the news is stored in this repo.
 - After changing words or example sentences, regenerate audio (below). Cards are keyed by headword, so a word appearing in two lists is practised once.
 
 ## Handwriting data

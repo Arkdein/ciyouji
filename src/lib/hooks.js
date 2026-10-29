@@ -6,7 +6,7 @@ export function parseRoute(hash) {
   if (!a) return { name: 'home' };
   if (a === 'session') return { name: 'session', mode: b || 'daily', strand: c || null };
   if (a === 'words') return { name: 'words', strand: b || 's1' };
-  if (a === 'news') return { name: 'news', strand: b || 's1' };
+  if (a === 'news') return { name: 'news', strand: b || 'all' };
   if (a === 'write') return { name: 'write', mode: b || null, arg: c ? decodeURIComponent(c) : null };
   if (a === 'progress') return { name: 'progress' };
   if (a === 'report') return { name: 'report' };
