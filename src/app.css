@@ -245,7 +245,7 @@ a { color: var(--ink); }
 .pick .src.e8 { background: color-mix(in srgb, var(--gold) 16%, transparent); color: var(--gold); }
 .pick .src.cna { background: var(--good-bg); color: var(--mint-strong); }
 .pick .tag { font-size: 11px; color: var(--text-soft); text-decoration: none; border: 1px solid var(--line); border-radius: 20px; padding: 1px 8px; }
-.pick h2 { font-size: 19px; line-height: 1.4; }
+.pick h2 { font-family: var(--font-body); font-weight: 700; font-size: 18px; line-height: 1.45; letter-spacing: 0.01em; } /* real headlines can contain any character; the display face lacks some (e.g. 回) */
 .pick h2 a { color: var(--ink-strong); text-decoration: none; }
 .pick h2 a:hover { text-decoration: underline; }
 .pick .hook { margin: 0; font-size: 14px; line-height: 1.7; }
