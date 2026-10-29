@@ -8,7 +8,7 @@ const KEEP_LOG_DAYS = 120;
 export function defaultState() {
   return {
     v: 2,
-    profile: { cls: '', idx: '', nick: '' },
+    profile: { cls: '', idx: '' },
     settings: { newPerDay: 5, quiet: false, theme: 'system', focus: null, showEn: true },
     exam: { date: null },
     cards: {}, // keyed by headword
@@ -27,7 +27,7 @@ export function sanitize(raw) {
   if (!raw || typeof raw !== 'object') return d;
   const str = (v, max = 40) => (typeof v === 'string' ? v.slice(0, max) : '');
   const num = (v, fb = 0) => (Number.isFinite(v) ? v : fb);
-  if (raw.profile) d.profile = { cls: str(raw.profile.cls, 20), idx: str(raw.profile.idx, 20), nick: str(raw.profile.nick, 30) };
+  if (raw.profile) d.profile = { cls: str(raw.profile.cls, 20), idx: str(raw.profile.idx, 20) };
   if (raw.settings) {
     const s = raw.settings;
     d.settings = {

@@ -69,6 +69,6 @@ python3 scripts/make-audio-manifest.py
 ## Privacy and policy
 
 - Progress lives in the student's own browser (localStorage). Clearing site data or switching device loses it; Progress → Download backup saves a file.
-- The app asks only for class and index number (nickname optional). Do not add NRIC, full names or emails.
+- The app asks only for class and index number only. Do not add NRIC, full names or emails.
 - The repo and site are public. Do not add SEAB past-paper passages or other copyrighted text to the repo.
 - Check your school's or MOE's guidance on staff-hosted student tools before rollout.

@@ -75,7 +75,6 @@ export function Progress() {
             <label class="field">班级 Class<input value={st.profile.cls} onInput={(e) => setProfile('cls', e.currentTarget.value)} placeholder="例如 24S53" maxLength={20} /></label>
             <label class="field">学号 Index number<input value={st.profile.idx} onInput={(e) => setProfile('idx', e.currentTarget.value)} placeholder="例如 07" maxLength={20} /></label>
           </div>
-          <label class="field">昵称（选填）Nickname, optional<input value={st.profile.nick} onInput={(e) => setProfile('nick', e.currentTarget.value)} maxLength={30} /></label>
           <div class="notice">只有班级、学号，以及报告里看得到的数字会发给老师；你的作答内容不会外传。 Only your class, index number and the counts shown in the report are shared, and only when you press Send. Your answers never leave this device.</div>
           <div class="row">
             <button class="btn primary" onClick={() => go('#/report')}><Icon name="print" /> 查看报告 View report</button>

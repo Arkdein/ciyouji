@@ -18,7 +18,6 @@
 var FIELDS = [
   ['cls', 'Class', false],
   ['idx', 'Index number', false],
-  ['nick', 'Nickname', false],
   ['date', 'Date', false],
   ['streak', 'Streak (days)', false],
   ['daysWeek', 'Study days this week', false],

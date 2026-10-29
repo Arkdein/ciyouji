@@ -57,7 +57,7 @@ export function Report() {
         <table>
           <tbody>
             <tr><th>班级 Class</th><td>{sum.cls || '—'}</td><th>学号 Index</th><td>{sum.idx || '—'}</td></tr>
-            <tr><th>昵称 Nickname</th><td>{sum.nick || '—'}</td><th>日期 Date</th><td>{sum.date}</td></tr>
+            <tr><th>日期 Date</th><td colSpan={3}>{sum.date}</td></tr>
             {sum.examDays != null && <tr><th>距离考试 To exam</th><td colSpan={3}>{sum.examDays} 天 days</td></tr>}
           </tbody>
         </table>

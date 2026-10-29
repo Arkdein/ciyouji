@@ -17,7 +17,6 @@ export function summarise(state, vocab, strands, today) {
     date: isoFromDay(today),
     cls: state.profile.cls,
     idx: state.profile.idx,
-    nick: state.profile.nick,
     streak: effectiveStreak(state.streak, today),
     daysWeek: daysThisWeek(state.days, today),
     daysTotal: state.days.length,
@@ -62,7 +61,6 @@ export function formFields(s, entries) {
   const values = {
     cls: s.cls,
     idx: s.idx,
-    nick: s.nick,
     date: s.date,
     streak: s.streak,
     daysWeek: s.daysWeek,
