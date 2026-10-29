@@ -18,7 +18,8 @@ const EARN = [
   ['获得贴纸', 'Earn a sticker', XP.sticker],
 ];
 
-export function Stickers() {
+/** Ranks, XP and the sticker collection. Lives inside the 进度 tab. */
+export function StickerBook() {
   const st = useStore();
   const today = useToday();
   const g = st.game;
@@ -28,12 +29,6 @@ export function Stickers() {
 
   return (
     <>
-      <div class="page-head">
-        <a href="#/" class="small no-print">← 返回行程 Back to the trip</a>
-        <h1>贴纸册</h1>
-        <div class="en">Sticker book · {stickerCount(st)} of {total} collected</div>
-      </div>
-
       <section class="card rank-card">
         <div class="rank-hero">
           <RankBadge index={g.rank} size={84} />

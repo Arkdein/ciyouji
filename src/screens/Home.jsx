@@ -86,7 +86,7 @@ export function Home() {
           <Logo size={64} />
           <p class="hh-tag">一字一站，游遍 H1 华文<span>One word at a time, all the way to the exam.</span></p>
         </div>
-        <a class="hh-rank" href="#/stickers" aria-label="查看等级与贴纸册 Open ranks and sticker book">
+        <a class="hh-rank" href="#/progress" aria-label="查看等级与贴纸册 Open ranks and sticker book">
           <RankBadge index={st.game.rank} size={52} />
           <div class="grow">
             <RankMeter xp={st.game.xp} compact />
@@ -149,7 +149,7 @@ export function Home() {
       <div class={`notice`} style={{ marginBottom: '22px' }}>
         <b>{pace.cn}</b>
         <div>{pace.en}</div>
-        {examDays == null && <a href="#/progress" class="small">去设定 Set exam date →</a>}
+        {examDays == null && <a href="#/progress/settings" class="small">去设定 Set exam date →</a>}
       </div>
 
       <div class="row" style={{ justifyContent: 'space-between', margin: '0 0 14px' }}>

@@ -434,3 +434,7 @@ a.cw:hover { border-color: var(--mint-strong); }
 @keyframes cele-pop { 0% { transform: scale(0.3) rotate(-18deg); opacity: 0; } 100% { transform: none; opacity: 1; } }
 @keyframes cele-fade { from { opacity: 0; } to { opacity: 1; } }
 @media print { .cele, .home-head .hh-rank, .rail-stickers { display: none !important; } }
+
+/* Progress tab: Journey / Settings switch */
+.progress-tabs { display: flex; width: 100%; margin-bottom: 18px; }
+.progress-tabs button { flex: 1; white-space: nowrap; display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; }

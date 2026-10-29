@@ -10,7 +10,6 @@ import { News } from './screens/News.jsx';
 import { Progress } from './screens/Progress.jsx';
 import { Report } from './screens/Report.jsx';
 import { Write, WriteRun } from './screens/Write.jsx';
-import { Stickers } from './screens/Stickers.jsx';
 import { Celebration } from './components/Game.jsx';
 import { LogoMark } from './components/Logo.jsx';
 import { nextCelebration, dismissCelebration } from './lib/game.js';
@@ -64,7 +63,6 @@ export function App() {
             </a>
           ))}
         </nav>
-        <a class="rail-stickers" href="#/stickers"><Icon name="star" /> 贴纸册 <small>Stickers</small></a>
         <div class="rail-foot">
           <span class="small soft">进度存于本机<br />Saved on this device</span>
           <button class="theme-btn" onClick={() => update((s) => ({ ...s, settings: { ...s.settings, theme: nextTheme } }))} title="切换主题 Change theme">
@@ -77,9 +75,8 @@ export function App() {
         {route.name === 'words' && <Words strand={route.strand} />}
         {route.name === 'write' && <Write />}
         {route.name === 'news' && <News strand={route.strand} />}
-        {route.name === 'progress' && <Progress />}
+        {route.name === 'progress' && <Progress view={route.view} />}
         {route.name === 'report' && <Report />}
-        {route.name === 'stickers' && <Stickers />}
       </main>
       {celebration}
       <nav class="tabbar" aria-label="主导航 Main">

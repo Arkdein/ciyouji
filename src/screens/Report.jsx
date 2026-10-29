@@ -39,7 +39,7 @@ export function Report() {
   return (
     <div class="report">
       <div class="page-head no-print">
-        <a href="#/progress" class="small">← 返回 Back</a>
+        <a href="#/progress/settings" class="small">← 返回 Back</a>
       </div>
       <div class="page-head">
         <h1>词游记　学习进度报告</h1>

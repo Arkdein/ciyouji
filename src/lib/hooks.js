@@ -8,9 +8,9 @@ export function parseRoute(hash) {
   if (a === 'words') return { name: 'words', strand: b || 's1' };
   if (a === 'news') return { name: 'news', strand: b || 'all' };
   if (a === 'write') return { name: 'write', mode: b || null, arg: c ? decodeURIComponent(c) : null };
-  if (a === 'progress') return { name: 'progress' };
+  if (a === 'progress') return { name: 'progress', view: b === 'settings' ? 'settings' : 'journey' };
   if (a === 'report') return { name: 'report' };
-  if (a === 'stickers') return { name: 'stickers' };
+  if (a === 'stickers') return { name: 'progress', view: 'journey' }; // old link: the sticker book now lives in 进度
   return { name: 'home' };
 }
 
