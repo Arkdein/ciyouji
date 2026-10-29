@@ -2,6 +2,7 @@
   "newsFeedUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQzYgQHI5LfELB-RTmTP_laBMGHSWvDvmLlHIvsy3zzcPveFXuUQF-DvSBifl9C0H0CkhAgmDKaPsk8/pub?gid=1&single=true&output=csv",
   "formResponseUrl": "",
   "entries": {
+    "name": "",
     "cls": "",
     "idx": "",
     "date": "",
@@ -19,6 +20,9 @@
     "writeSecure": "",
     "writeAcc7": "",
     "writeWeak": "",
+    "xp": "",
+    "rank": "",
+    "stickers": "",
     "code": ""
   }
 }

@@ -16,6 +16,7 @@
 
 // Field keys MUST match src/lib/report.js (formFields) and public/config.json.
 var FIELDS = [
+  ['name', 'Student name', false],
   ['cls', 'Class', false],
   ['idx', 'Index number', false],
   ['date', 'Date', false],
@@ -33,6 +34,9 @@ var FIELDS = [
   ['writeSecure', 'Characters secure (writing)', false],
   ['writeAcc7', 'Writing accuracy last 7 days (%)', false],
   ['writeWeak', 'Most-missed characters (writing)', true],
+  ['xp', 'XP (journey points)', false],
+  ['rank', 'Rank', false],
+  ['stickers', 'Stickers collected', false],
   ['code', 'Progress code', true]
 ];
 

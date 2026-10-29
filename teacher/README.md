@@ -13,4 +13,4 @@ Students tap **Send to teacher** in the app. Their progress summary lands as one
 - The script has not been run against a live account by its author. If step 3 prints empty `entries`, tell me and I will adjust.
 - The browser cannot read Google's reply, so students see "sent" without proof. A new row in your Sheet is the proof. Students can always fall back to **Print / Save as PDF** or **Copy code**.
 - Anyone who has the site URL can see the form ID in `config.json` and submit rows. This is a risk of a public static site. Expect junk rows to be possible; the progress-code checksum catches typos, not forgeries.
-- Collect only class and index number. Do not add NRIC, full names or email fields.
+- The form collects the student's name, class and index number, plus progress counts and journey points (XP, rank, stickers). Do not add NRIC or email fields. Keep the response Sheet private (do not share the link), and check that this use of student names fits your school's data-protection guidance.

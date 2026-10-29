@@ -71,11 +71,12 @@ export function Progress() {
         <h2>给老师的进度报告</h2>
         <div class="small soft">Report for your teacher</div>
         <div class="stack">
+          <label class="field">姓名 Name<input value={st.profile.name} onInput={(e) => setProfile('name', e.currentTarget.value)} placeholder="例如 陈小明 Tan Xiao Ming" maxLength={40} autoComplete="name" /></label>
           <div class="grid2">
             <label class="field">班级 Class<input value={st.profile.cls} onInput={(e) => setProfile('cls', e.currentTarget.value)} placeholder="例如 24S53" maxLength={20} /></label>
             <label class="field">学号 Index number<input value={st.profile.idx} onInput={(e) => setProfile('idx', e.currentTarget.value)} placeholder="例如 07" maxLength={20} /></label>
           </div>
-          <div class="notice">只有班级、学号，以及报告里看得到的数字会发给老师；你的作答内容不会外传。 Only your class, index number and the counts shown in the report are shared, and only when you press Send. Your answers never leave this device.</div>
+          <div class="notice">只有姓名、班级、学号，以及报告里看得到的数字会发给老师；你的作答内容不会外传。 Only your name, class, index number and the counts shown in the report are shared, and only when you press Send. Your answers never leave this device.</div>
           <div class="row">
             <button class="btn primary" onClick={() => go('#/report')}><Icon name="print" /> 查看报告 View report</button>
             {st.sent && <span class="small soft">上次发送 Last sent: {st.sent.slice(0, 16).replace('T', ' ')}</span>}

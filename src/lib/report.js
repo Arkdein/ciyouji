@@ -2,6 +2,7 @@ import { coverage, accuracy } from './stats.js';
 import { daysThisWeek, effectiveStreak } from './streak.js';
 import { isoFromDay, dayFromIso } from './dates.js';
 import { writingSummary } from './writing.js';
+import { rankInfo, stickerCount } from './game.js';
 
 /** Everything the teacher sees, in one small object. */
 export function summarise(state, vocab, strands, today) {
@@ -15,6 +16,7 @@ export function summarise(state, vocab, strands, today) {
   const examDays = state.exam.date ? dayFromIso(state.exam.date) - today : null;
   return {
     date: isoFromDay(today),
+    name: state.profile.name,
     cls: state.profile.cls,
     idx: state.profile.idx,
     streak: effectiveStreak(state.streak, today),
@@ -31,6 +33,7 @@ export function summarise(state, vocab, strands, today) {
     lists: strands.map((s) => ({ id: s.id, num: s.num, cn: s.cn, ...(byStrand[s.id] || { new: 0, learning: 0, reviewing: 0, secure: 0, total: 0 }) })),
     weak,
     write: writingSummary(state, today),
+    game: { xp: state.game.xp, rank: rankInfo(state.game.xp).rank.cn, rankIndex: rankInfo(state.game.xp).index, stickers: stickerCount(state) },
   };
 }
 
@@ -43,12 +46,13 @@ function checksum(str) {
 /** Compact text the student can paste into any form or message. Not secure, just tidy. */
 export function progressCode(s) {
   const body = [
-    s.date, s.cls, s.idx, s.streak, s.daysWeek, s.daysTotal, s.acc7 ?? '', s.secure, s.reviewing, s.learning, s.unseen,
+    s.date, s.name, s.cls, s.idx, s.streak, s.daysWeek, s.daysTotal, s.acc7 ?? '', s.secure, s.reviewing, s.learning, s.unseen,
     s.lists.map((l) => `${l.secure}/${l.total}`).join(','),
     s.weak.join(''),
     `W${s.write.started}/${s.write.secure}/${s.write.acc7 ?? ''}`,
+    `G${s.game.xp}/${s.game.rankIndex}/${s.game.stickers}`,
   ].join('|');
-  return `H1VS1|${body}|${checksum(body)}`;
+  return `H1VS2|${body}|${checksum(body)}`;
 }
 
 /** Plain-language list summary, e.g. "1:12/65, 2:8/65, … 成:3/50". */
@@ -59,6 +63,7 @@ export function listsText(s) {
 /** Turn a summary into the fields of a Google Form response, using config.entries. */
 export function formFields(s, entries) {
   const values = {
+    name: s.name,
     cls: s.cls,
     idx: s.idx,
     date: s.date,
@@ -76,6 +81,9 @@ export function formFields(s, entries) {
     writeSecure: s.write.secure,
     writeAcc7: s.write.acc7 ?? '',
     writeWeak: s.write.weak.join('、'),
+    xp: s.game.xp,
+    rank: s.game.rank,
+    stickers: s.game.stickers,
     code: progressCode(s),
   };
   const out = {};

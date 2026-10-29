@@ -5,7 +5,7 @@ import { VOCAB, BY_ID, STRAND_BY_ID } from '../lib/vocab.js';
 import { dayNumber, dayFromIso } from '../lib/dates.js';
 import { buildQueue, requeueMissed, scheduleCheck } from '../lib/session.js';
 import { kindForCard, buildExercise, checkTyped } from '../lib/exercises.js';
-import { answerCard, introduceCard, introducedToday, markStudied } from '../lib/progress.js';
+import { answerCard, introduceCard, introducedToday, markStudied, finishSession } from '../lib/progress.js';
 import { effectiveStreak, weekDots } from '../lib/streak.js';
 import { Icon } from '../components/Icon.jsx';
 import { AudioBtn, Tianzige, Highlighted } from '../components/Shared.jsx';
@@ -58,10 +58,11 @@ function SessionRun({ mode, strand, onAgain }) {
   const [note, setNote] = useState('');
   const stats = useRef({ answered: 0, correct: 0, intros: 0, secured: [], retried: new Set() }).current;
   const inputRef = useRef(null);
+  const xp0 = useRef(getState().game.xp).current;
 
   const advance = (q, i) => {
     if (i >= q.length) {
-      if (stats.answered > 0 || stats.intros > 0) update((s) => markStudied(s, today));
+      if (stats.answered > 0 || stats.intros > 0) update((s) => finishSession(markStudied(s, today), stats, today));
       setQueue(q);
       setIdx(i);
       setPhase('done');
@@ -160,6 +161,7 @@ function SessionRun({ mode, strand, onAgain }) {
                 <div><b class="tnum">{pct}%</b><span>答对 Correct</span></div>
                 <div><b class="tnum">{stats.intros}</b><span>新词 New words</span></div>
               </div>
+              <div class="xp-gain" role="status">+{Math.max(0, getState().game.xp - xp0)} XP</div>
               {stats.secured.length > 0 && (
                 <div class="notice" style={{ width: '100%' }}>
                   <b>新掌握 Now secure:</b> {stats.secured.slice(0, 12).join('、')}

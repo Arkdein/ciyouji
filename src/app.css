@@ -350,3 +350,87 @@ a.cw:hover { border-color: var(--mint-strong); }
 .cw.learning { border-color: var(--gold); }
 .cw.reviewing { border-color: var(--ink); }
 .cw.secure { border-color: var(--mint-strong); background: var(--good-bg); }
+
+/* ============ Logo, XP, ranks and stickers ============ */
+.brand { gap: 11px; }
+.brand .logo-mark, .logo .logo-mark { flex-shrink: 0; border-radius: 22%; }
+.logo { display: inline-flex; align-items: center; gap: 14px; }
+.logo-text { display: flex; flex-direction: column; }
+.logo-text .name { font-family: var(--font-display); font-size: 40px; line-height: 1; color: var(--ink-strong); letter-spacing: 0.08em; }
+.logo-text .sub { font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text-soft); margin-top: 6px; }
+
+.home-head { display: flex; align-items: center; justify-content: space-between; gap: 18px 28px; flex-wrap: wrap; margin-bottom: 26px; padding-bottom: 20px; border-bottom: 1px dashed var(--line-strong); }
+.hh-brand { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.hh-tag { margin: 0; max-width: 17em; font-family: var(--font-display); font-size: 17px; line-height: 1.5; color: var(--ink); }
+.hh-tag span { display: block; font-family: var(--font-body); font-size: 12px; color: var(--text-soft); line-height: 1.4; margin-top: 2px; }
+.hh-rank { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 10px 16px 10px 12px; box-shadow: var(--shadow); min-width: 290px; flex: 0 1 340px; }
+.hh-rank:hover { border-color: var(--mint-strong); }
+.hh-sub { display: flex; justify-content: space-between; gap: 6px 12px; margin-top: 6px; color: var(--text-soft); align-items: center; flex-wrap: wrap; }
+.hh-sub > span { white-space: nowrap; }
+.hh-sub b { color: var(--text); }
+.hh-stk { display: inline-flex; align-items: center; gap: 4px; color: var(--gold); font-weight: 600; }
+.hh-stk b { color: var(--gold); }
+@media (max-width: 560px) {
+  .logo-text .name { font-size: 34px; }
+  .home-head { margin-bottom: 20px; }
+  .hh-rank { flex-basis: 100%; }
+}
+
+.rank-meter { min-width: 0; }
+.rm-top { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.rm-name { font-family: var(--font-display); font-weight: 400; font-size: 20px; color: var(--ink-strong); letter-spacing: 0.04em; }
+.rm-en { font-size: 12px; color: var(--text-soft); }
+.rm-xp { margin-left: auto; font-size: 13px; font-weight: 700; color: var(--gold); }
+.rm-bar, .dgoal { display: block; height: 8px; border-radius: 5px; background: var(--line); overflow: hidden; margin-top: 6px; }
+.rm-bar i, .dgoal i { display: block; height: 100%; border-radius: 5px; background: linear-gradient(90deg, var(--gold), var(--seal)); transition: width 0.4s ease; }
+.rank-meter.compact .rm-bar { height: 7px; margin-top: 5px; }
+.rm-foot { margin-top: 6px; }
+.hh-sub .dgoal { display: inline-block; width: 70px; height: 6px; margin: 0 0 0 6px; vertical-align: middle; }
+.dgoal { max-width: 320px; }
+.dgoal i { background: var(--mint-strong); }
+.hh-sub .dgoal i { background: var(--mint-strong); }
+
+.rank-card .rank-hero { display: flex; align-items: center; gap: 18px; }
+.ladder { margin-top: 14px; border-top: 1px dashed var(--line-strong); padding-top: 10px; font-size: 13.5px; }
+.ladder summary { cursor: pointer; font-weight: 600; color: var(--ink); }
+.ranks { list-style: none; padding: 0; margin: 12px 0; display: grid; gap: 6px; }
+.ranks li { display: flex; align-items: center; gap: 12px; opacity: 0.55; }
+.ranks li.got { opacity: 1; }
+.ranks li > span:nth-child(2) { flex: 1; }
+.earn { width: 100%; border-collapse: collapse; margin: 6px 0; }
+.earn td { padding: 5px 4px; border-bottom: 1px solid var(--line); }
+.earn td.num { text-align: right; font-weight: 700; color: var(--gold); }
+
+.sticker-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(138px, 1fr)); gap: 14px; }
+.sticker { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2px; padding: 14px 8px 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+.sticker.got { box-shadow: var(--shadow); }
+.sticker-art { display: block; filter: drop-shadow(0 3px 5px rgba(28, 52, 68, 0.28)); transition: transform 0.2s ease; }
+.sticker.got:hover .sticker-art { transform: rotate(-5deg) scale(1.05); }
+.sticker-art.locked { filter: grayscale(1) opacity(0.5); }
+.sticker-art.locked .emblem { opacity: 0.35; }
+.sticker .s-name { font-family: var(--font-display); font-size: 17px; color: var(--ink-strong); margin-top: 8px; letter-spacing: 0.04em; }
+.sticker .s-how { line-height: 1.35; }
+.sticker:not(.got) .s-name { color: var(--text-soft); }
+
+.xp-gain { font-family: var(--font-display); font-size: 30px; color: var(--gold); letter-spacing: 0.04em; }
+
+.rail-stickers { display: flex; align-items: center; gap: 12px; padding: 10px 20px; text-decoration: none; color: var(--text); font-size: 14px; border-top: 1px solid var(--line); }
+.rail-stickers:hover { background: var(--surface-2); }
+.rail-stickers .icon { font-size: 19px; color: var(--gold); }
+.rail-stickers small { font-size: 10.5px; color: var(--text-soft); }
+
+/* celebration pop-up */
+.cele { position: fixed; inset: 0; z-index: 100; background: rgba(17, 28, 36, 0.62); display: flex; align-items: center; justify-content: center; padding: 20px; animation: cele-fade 0.2s ease; }
+.cele-card { position: relative; width: min(360px, 100%); background: var(--surface); border-radius: 22px; padding: 22px 24px 24px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 6px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4); overflow: hidden; }
+.cele-card > * { position: relative; }
+.cele-glow { position: absolute !important; left: 50%; top: 92px; width: 280px; height: 280px; margin: -140px 0 0 -140px; background: radial-gradient(circle, color-mix(in srgb, var(--gold) 34%, transparent) 0, transparent 66%); pointer-events: none; }
+.cele-kicker { text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700; color: var(--seal); }
+.cele-art { margin: 6px 0 2px; animation: cele-pop 0.55s cubic-bezier(0.2, 1.4, 0.4, 1); }
+.cele-art .sticker-art { filter: drop-shadow(0 6px 10px rgba(28, 52, 68, 0.35)); }
+.cele-card h2 { font-size: 30px; color: var(--ink-strong); letter-spacing: 0.06em; }
+.cele-how { margin: 4px 0 2px; line-height: 1.6; }
+.cele-xp { font-family: var(--font-display); font-size: 22px; color: var(--gold); margin-bottom: 8px; }
+.cele-card .btn { margin-top: 8px; width: 100%; }
+@keyframes cele-pop { 0% { transform: scale(0.3) rotate(-18deg); opacity: 0; } 100% { transform: none; opacity: 1; } }
+@keyframes cele-fade { from { opacity: 0; } to { opacity: 1; } }
+@media print { .cele, .home-head .hh-rank, .rail-stickers { display: none !important; } }

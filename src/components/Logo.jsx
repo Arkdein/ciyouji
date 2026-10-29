@@ -1,0 +1,33 @@
+// 词游记 logo: a red seal (印章) carved with 词, sitting on a winding road that ends in a pin.
+// The glyph is an outline (not live text) so the mark never depends on a font loading.
+const GLYPH = 'M68.5 20.6 63 28H33.8L34.6 30.9H75.8C77.2 30.9 78.2 30.4 78.4 29.3C74.7 25.7 68.5 20.6 68.5 20.6ZM10.6 3.9 9.7 4.5C13.3 8.8 17.7 15.3 19.2 21.1C29.7 27.8 38 7.8 10.6 3.9ZM26.7 34.7C29.1 34.4 30.3 33.6 30.7 32.9L21.1 24.9L15.9 30.1H2.7L3.6 33L15.8 32.9V75C15.8 77.2 15.1 78.1 10.6 80.6L18.8 93C20.2 92 21.8 90.1 22.4 87.2C28.7 79.4 33.7 72.2 36.2 68.5L35.6 67.5L26.7 72.8ZM79.6 12H36.1L37 14.8H80.6V83.1C80.6 84.7 80 85.5 78 85.5C75.2 85.5 61.1 84.7 61.1 84.7V86C67.5 86.9 70.3 88.1 72.4 89.6C74.4 91.1 75.2 93.5 75.6 96.8C89.9 95.6 91.9 91.4 91.9 84V16.7C94 16.3 95.4 15.4 96.1 14.6L84.8 5.9ZM48.6 76V68.8H60.6V76H62.4C65.8 76 70.8 74.1 70.9 73.5V47.5C72.6 47.2 73.9 46.5 74.4 45.9L64.4 38.4L59.8 43.4H49L38.3 39V79.3H39.8C44.1 79.3 48.6 77 48.6 76ZM60.6 46.3V65.9H48.6V46.3Z';
+
+export function LogoMark({ size = 48, tile = true, class: cls = '' }) {
+  return (
+    <svg class={`logo-mark ${cls}`} width={size} height={size} viewBox="0 0 128 128" role="img" aria-label="词游记">
+      {tile && <rect width="128" height="128" rx="28" fill="#2c4a5e" />}
+      <path d="M12 114C42 116 40 84 66 86S98 74 112 36" fill="none" stroke="#4f9c82" stroke-width="15" stroke-linecap="round" />
+      <path d="M12 114C42 116 40 84 66 86S98 74 112 36" fill="none" stroke="#f2f5f4" stroke-width="2" stroke-linecap="round" stroke-dasharray="1.5 8" />
+      <g transform="rotate(-6 62 56)">
+        <rect x="32" y="26" width="60" height="60" rx="9" fill="#b0503b" />
+        <rect x="36.5" y="30.5" width="51" height="51" rx="6" fill="none" stroke="#f0c9bd" stroke-width="1.6" opacity=".7" />
+        <g transform="translate(38.5 34) scale(.47)"><path d={GLYPH} fill="#fbf1e4" /></g>
+      </g>
+      <circle cx="112" cy="36" r="9" fill="#d9a441" />
+      <circle cx="112" cy="36" r="3.4" fill="#2c4a5e" />
+    </svg>
+  );
+}
+
+/** Mark + wordmark, used in the rail and the home header. */
+export function Logo({ size = 48, sub = true }) {
+  return (
+    <span class="logo">
+      <LogoMark size={size} />
+      <span class="logo-text">
+        <span class="name">词游记</span>
+        {sub && <span class="sub">Word Journey</span>}
+      </span>
+    </span>
+  );
+}

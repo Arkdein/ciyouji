@@ -5,6 +5,7 @@ import { VOCAB, STRANDS } from '../lib/vocab.js';
 import { summarise, progressCode, submitToForm } from '../lib/report.js';
 import { Icon } from '../components/Icon.jsx';
 import { MasteryBar } from '../components/Shared.jsx';
+import { STICKERS } from '../lib/stickers.js';
 
 export function Report() {
   const st = useStore();
@@ -14,10 +15,10 @@ export function Report() {
   const sum = summarise(st, VOCAB, STRANDS, today);
   const code = progressCode(sum);
   const canSend = !!(config && config.formResponseUrl);
-  const missingId = !st.profile.cls.trim() || !st.profile.idx.trim();
+  const missingId = !st.profile.name.trim() || !st.profile.cls.trim() || !st.profile.idx.trim();
 
   const send = async () => {
-    if (missingId) return setMsg('请先在「进度」页填写班级和学号。 Add your class and index number under Progress first.');
+    if (missingId) return setMsg('请先在「进度」页填写姓名、班级和学号。 Add your name, class and index number under Progress first.');
     try {
       await submitToForm(sum, config);
       update((s) => ({ ...s, sent: new Date().toISOString() }));
@@ -56,6 +57,7 @@ export function Report() {
       <div class="card">
         <table>
           <tbody>
+            <tr><th>姓名 Name</th><td colSpan={3}><b>{sum.name || '—'}</b></td></tr>
             <tr><th>班级 Class</th><td>{sum.cls || '—'}</td><th>学号 Index</th><td>{sum.idx || '—'}</td></tr>
             <tr><th>日期 Date</th><td colSpan={3}>{sum.date}</td></tr>
             {sum.examDays != null && <tr><th>距离考试 To exam</th><td colSpan={3}>{sum.examDays} 天 days</td></tr>}
@@ -108,6 +110,16 @@ export function Report() {
         </div>
         <div class="small soft" style={{ margin: '10px 0 4px' }}>最常写错的字 Most-missed characters</div>
         <div style={{ fontSize: 22 }}>{sum.write.weak.length ? sum.write.weak.join('　') : '暂时没有 None yet'}</div>
+      </div>
+
+      <div class="card">
+        <h2>旅程积分</h2>
+        <div class="small soft" style={{ marginBottom: 8 }}>Journey points (engagement only, not for marks)</div>
+        <div class="meta">
+          <div><b class="tnum">{sum.game.xp}</b><span>经验值 XP</span></div>
+          <div><b>{sum.game.rank}</b><span>等级 Rank</span></div>
+          <div><b class="tnum">{sum.game.stickers}</b><span>贴纸 Stickers (of {STICKERS.length})</span></div>
+        </div>
       </div>
 
       <div class="card">

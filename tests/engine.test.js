@@ -220,7 +220,7 @@ test('progress: sanitize rejects junk and keeps good data', () => {
 test('report: summary, code and form fields', () => {
   const strands = [{ id: 's1', num: 1, cn: 'x' }, { id: 'idiom', num: 10, cn: 'y' }];
   let st = defaultState();
-  st.profile = { cls: '24S53', idx: '07' };
+  st.profile = { name: '陈小明', cls: '24S53', idx: '07' };
   st = introduceCard(st, vocab[0].w, T);
   st = answerCard(st, vocab[0].w, 'again', T);
   const sum = summarise(st, vocab, strands, T);
@@ -229,10 +229,12 @@ test('report: summary, code and form fields', () => {
   assert.equal(sum.total, new Set(vocab.map((v) => v.w)).size);
   assert.deepEqual(sum.weak, [vocab[0].w]);
   const code = progressCode(sum);
-  assert.match(code, /^H1VS1\|/);
-  const f = formFields(sum, { cls: 'entry.1', idx: 'entry.2', code: 'entry.9', missing: '' });
+  assert.match(code, /^H1VS2\|/);
+  assert.equal(sum.name, '陈小明');
+  const f = formFields(sum, { name: 'entry.0', cls: 'entry.1', idx: 'entry.2', code: 'entry.9', missing: '' });
+  assert.equal(f['entry.0'], '陈小明');
   assert.equal(f['entry.1'], '24S53');
   assert.equal(f['entry.2'], '07');
   assert.equal(f['entry.9'], code);
-  assert.equal(Object.keys(f).length, 3);
+  assert.equal(Object.keys(f).length, 4);
 });

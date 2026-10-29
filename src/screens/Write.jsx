@@ -1,9 +1,9 @@
-import { useMemo, useState, useEffect } from 'preact/hooks';
+import { useMemo, useState, useEffect, useRef } from 'preact/hooks';
 import { useStore, update, getState } from '../lib/store.js';
 import { useToday, go } from '../lib/hooks.js';
 import { VOCAB, BY_ID } from '../lib/vocab.js';
 import { statusOf } from '../lib/srs.js';
-import { writeIntroduce, writeAnswer, markStudied, writtenIntroducedToday } from '../lib/progress.js';
+import { writeIntroduce, writeAnswer, markStudied, writtenIntroducedToday, finishWriteSession } from '../lib/progress.js';
 import { buildWriteQueue, buildWordQueue, writingPool, charsOf, syllableFor, outcomeForMistakes } from '../lib/writing.js';
 import { HanziPad } from '../components/HanziPad.jsx';
 import { Icon } from '../components/Icon.jsx';
@@ -106,6 +106,7 @@ export function WriteRun({ mode, arg }) {
   const [slips, setSlips] = useState(0);
   const [retried, setRetried] = useState(() => new Set());
   const [stats, setStats] = useState({ answered: 0, clean: 0, intros: 0, log: [] });
+  const xp0 = useRef(getState().game.xp).current;
   const [note, setNote] = useState('');
 
   const e = queue[idx];
@@ -124,7 +125,7 @@ export function WriteRun({ mode, arg }) {
 
   // A finished session counts as a study day.
   useEffect(() => {
-    if (done && queue.length && stats.answered + stats.intros > 0) update((s) => markStudied(s, today));
+    if (done && queue.length && stats.answered + stats.intros > 0) update((s) => finishWriteSession(markStudied(s, today), stats, today));
   }, [done]);
 
   const leave = () => go('#/write');
@@ -188,6 +189,7 @@ export function WriteRun({ mode, arg }) {
           <div><b class="tnum">{pct == null ? '—' : `${pct}%`}</b><span>写对 Correct</span></div>
           <div><b class="tnum">{stats.intros}</b><span>新字 New</span></div>
         </div>
+        <div class="xp-gain" role="status">+{Math.max(0, getState().game.xp - xp0)} XP</div>
         <div class="charwall" style={{ justifyContent: 'center' }}>
           {stats.log.map((l, i) => <span key={i} class={`cw ${l.kind === 'again' ? 'learning' : l.kind === 'new' ? 'new' : 'secure'}`}>{l.ch}</span>)}
         </div>

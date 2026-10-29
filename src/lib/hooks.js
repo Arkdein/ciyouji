@@ -10,6 +10,7 @@ export function parseRoute(hash) {
   if (a === 'write') return { name: 'write', mode: b || null, arg: c ? decodeURIComponent(c) : null };
   if (a === 'progress') return { name: 'progress' };
   if (a === 'report') return { name: 'report' };
+  if (a === 'stickers') return { name: 'stickers' };
   return { name: 'home' };
 }
 

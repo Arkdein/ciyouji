@@ -1,6 +1,7 @@
 import { newCard, applyReview } from './srs.js';
 import { newStreak, recordStudyDay } from './streak.js';
 import { WRITE_STUDY_DAY_ANSWERS } from './writing.js';
+import { XP, newGame, sanitizeGame, addXp, setFlag } from './game.js';
 
 export const STUDY_DAY_ANSWERS = 8; // a day counts once this many answers are in, or a session is finished
 const KEEP_LOG_DAYS = 120;
@@ -8,7 +9,7 @@ const KEEP_LOG_DAYS = 120;
 export function defaultState() {
   return {
     v: 2,
-    profile: { cls: '', idx: '' },
+    profile: { name: '', cls: '', idx: '' },
     settings: { newPerDay: 5, quiet: false, theme: 'system', focus: null, showEn: true },
     exam: { date: null },
     cards: {}, // keyed by headword
@@ -18,6 +19,7 @@ export function defaultState() {
     intro: { day: 0, n: 0 }, // new words introduced today
     sent: null, // ISO timestamp of last submission to the teacher
     writing: { cards: {}, log: {}, intro: { day: 0, n: 0 } }, // handwriting track, keyed by character
+    game: newGame(), // XP, rank, stickers
   };
 }
 
@@ -27,7 +29,7 @@ export function sanitize(raw) {
   if (!raw || typeof raw !== 'object') return d;
   const str = (v, max = 40) => (typeof v === 'string' ? v.slice(0, max) : '');
   const num = (v, fb = 0) => (Number.isFinite(v) ? v : fb);
-  if (raw.profile) d.profile = { cls: str(raw.profile.cls, 20), idx: str(raw.profile.idx, 20) };
+  if (raw.profile) d.profile = { name: str(raw.profile.name, 40).replace(/[|\n\r]/g, ' '), cls: str(raw.profile.cls, 20), idx: str(raw.profile.idx, 20) };
   if (raw.settings) {
     const s = raw.settings;
     d.settings = {
@@ -75,6 +77,7 @@ export function sanitize(raw) {
     if (w.intro) d.writing.intro = { day: num(w.intro.day), n: num(w.intro.n) };
   }
   if (raw.intro) d.intro = { day: num(raw.intro.day), n: num(raw.intro.n) };
+  d.game = sanitizeGame(raw.game);
   if (typeof raw.sent === 'string') d.sent = raw.sent.slice(0, 40);
   return d;
 }
@@ -91,12 +94,28 @@ export function introducedToday(state, today) {
 export function introduceCard(state, key, today) {
   if (state.cards[key]) return state;
   const base = state.intro.day === today ? state.intro.n : 0;
-  return { ...state, cards: { ...state.cards, [key]: newCard(today) }, intro: { day: today, n: base + 1 } };
+  return addXp({ ...state, cards: { ...state.cards, [key]: newCard(today) }, intro: { day: today, n: base + 1 } }, XP.meet, today);
 }
 
 export function markStudied(state, today) {
   if (state.days.includes(today)) return state;
-  return { ...state, days: [...state.days, today].slice(-500), streak: recordStudyDay(state.streak, today) };
+  const last = state.days.length ? Math.max(...state.days) : null;
+  let next = { ...state, days: [...state.days, today].slice(-500), streak: recordStudyDay(state.streak, today) };
+  if (last != null && today - last >= 5) next = setFlag(next, 'comeback', today); // away for 4+ days
+  return addXp(next, XP.studyDay, today);
+}
+
+/** A vocab session reached its end: bonus XP, and the "perfect run" flag for 10+ clean answers. */
+export function finishSession(state, { answered, correct }, today) {
+  if (!answered) return state;
+  let next = addXp(state, XP.session, today);
+  if (answered >= 10 && correct === answered) next = setFlag(next, 'perfect', today);
+  return next;
+}
+
+/** A handwriting session reached its end. */
+export function finishWriteSession(state, { answered, intros }, today) {
+  return answered + intros > 0 ? addXp(state, XP.session, today) : state;
 }
 
 /** Record one graded answer; marks the day as studied once enough answers are in. */
@@ -105,7 +124,7 @@ export function answerCard(state, key, outcome, today) {
   const entry = state.log[today] || [0, 0];
   const log = { ...state.log, [today]: [entry[0] + 1, entry[1] + (outcome === 'again' ? 0 : 1)] };
   for (const k of Object.keys(log)) if (+k < today - KEEP_LOG_DAYS) delete log[k];
-  let next = { ...state, cards: { ...state.cards, [key]: applyReview(card, outcome, today) }, log };
+  let next = addXp({ ...state, cards: { ...state.cards, [key]: applyReview(card, outcome, today) }, log }, outcome === 'good' ? XP.good : outcome === 'hint' ? XP.hint : XP.again, today);
   if (log[today][0] >= STUDY_DAY_ANSWERS) next = markStudied(next, today);
   return next;
 }
@@ -122,7 +141,7 @@ export function writeIntroduce(state, ch, today) {
   const w = state.writing;
   const base = w.intro.day === today ? w.intro.n : 0;
   const card = { ...newCard(today), due: today + 1, seen: 1 };
-  return { ...state, writing: { ...w, cards: { ...w.cards, [ch]: card }, intro: { day: today, n: base + 1 } } };
+  return addXp({ ...state, writing: { ...w, cards: { ...w.cards, [ch]: card }, intro: { day: today, n: base + 1 } } }, XP.traced, today);
 }
 
 /** Record one from-memory attempt. */
@@ -132,7 +151,7 @@ export function writeAnswer(state, ch, outcome, today) {
   const e = w.log[today] || [0, 0];
   const log = { ...w.log, [today]: [e[0] + 1, e[1] + (outcome === 'again' ? 0 : 1)] };
   for (const k of Object.keys(log)) if (+k < today - KEEP_LOG_DAYS) delete log[k];
-  let next = { ...state, writing: { ...w, cards: { ...w.cards, [ch]: applyReview(card, outcome, today) }, log } };
+  let next = addXp({ ...state, writing: { ...w, cards: { ...w.cards, [ch]: applyReview(card, outcome, today) }, log } }, outcome === 'good' ? XP.wGood : outcome === 'hint' ? XP.wHint : XP.wAgain, today);
   if (log[today][0] >= WRITE_STUDY_DAY_ANSWERS) next = markStudied(next, today);
   return next;
 }

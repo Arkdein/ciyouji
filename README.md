@@ -1,6 +1,6 @@
 # 词游记 · Word Journey (H1 Chinese 8655)
 
-词游记 is a free, installable web app that turns H1 Chinese (SEAB 8655) vocabulary into a journey: nine topical strands plus the idiom bank become stops on a map, and secure words earn a stamp. It covers topical vocabulary and idioms: 635 entries across nine topical strands plus an idiom bank, spaced-repetition practice, exam-style cloze and typed questions, listening dictation, and a weekly teacher-approved list of local news links.
+词游记 is a free, installable web app that turns H1 Chinese (SEAB 8655) vocabulary into a journey: nine topical strands plus the idiom bank become stops on a map, and secure words earn a stamp. It covers topical vocabulary and idioms: 635 entries across nine topical strands plus an idiom bank, spaced-repetition practice, exam-style cloze and typed questions, listening dictation, a weekly teacher-approved list of local news links, and light gamification: XP, seven travel ranks (行者 to 游记大家) and 27 hand-drawn stickers that are earned for stamped stops, habits, word milestones and handwriting.
 
 Everything runs in the student's browser. There is no server, no account and no AI at run time.
 

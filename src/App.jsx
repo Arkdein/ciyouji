@@ -10,6 +10,10 @@ import { News } from './screens/News.jsx';
 import { Progress } from './screens/Progress.jsx';
 import { Report } from './screens/Report.jsx';
 import { Write, WriteRun } from './screens/Write.jsx';
+import { Stickers } from './screens/Stickers.jsx';
+import { Celebration } from './components/Game.jsx';
+import { LogoMark } from './components/Logo.jsx';
+import { nextCelebration, dismissCelebration } from './lib/game.js';
 
 const NAV = [
   { name: 'home', href: '#/', icon: 'home', cn: '行程', en: 'Trip' },
@@ -33,8 +37,11 @@ export function App() {
     else document.documentElement.removeAttribute('data-theme');
   }, [st.settings.theme]);
 
-  if (route.name === 'write' && route.mode) return <WriteRun key={`${route.mode}/${route.arg}`} mode={route.mode} arg={route.arg} />;
-  if (route.name === 'session') return <Session mode={route.mode} strand={route.strand} />;
+  const cel = nextCelebration(st);
+  const celebration = cel ? <Celebration key={cel} item={cel} onClose={() => update(dismissCelebration)} /> : null;
+
+  if (route.name === 'write' && route.mode) return <><WriteRun key={`${route.mode}/${route.arg}`} mode={route.mode} arg={route.arg} />{celebration}</>;
+  if (route.name === 'session') return <><Session mode={route.mode} strand={route.strand} />{celebration}</>;
 
   const nextTheme = { system: 'light', light: 'dark', dark: 'system' }[st.settings.theme];
   const themeLabel = { system: '跟随系统', light: '浅色', dark: '深色' }[st.settings.theme];
@@ -43,7 +50,7 @@ export function App() {
     <div class="shell">
       <aside class="rail">
         <div class="brand">
-          <div class="mark" aria-hidden="true">词</div>
+          <LogoMark size={42} />
           <div>
             <div class="name">词游记</div>
             <div class="sub">Word Journey</div>
@@ -57,6 +64,7 @@ export function App() {
             </a>
           ))}
         </nav>
+        <a class="rail-stickers" href="#/stickers"><Icon name="star" /> 贴纸册 <small>Stickers</small></a>
         <div class="rail-foot">
           <span class="small soft">进度存于本机<br />Saved on this device</span>
           <button class="theme-btn" onClick={() => update((s) => ({ ...s, settings: { ...s.settings, theme: nextTheme } }))} title="切换主题 Change theme">
@@ -71,7 +79,9 @@ export function App() {
         {route.name === 'news' && <News strand={route.strand} />}
         {route.name === 'progress' && <Progress />}
         {route.name === 'report' && <Report />}
+        {route.name === 'stickers' && <Stickers />}
       </main>
+      {celebration}
       <nav class="tabbar" aria-label="主导航 Main">
         {NAV.map((n) => (
           <a key={n.name} href={n.href} class={route.name === n.name ? 'active' : ''}>

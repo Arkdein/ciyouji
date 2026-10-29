@@ -10,8 +10,11 @@ import { weekDots, effectiveStreak, WEEKLY_GOAL, daysThisWeek } from '../lib/str
 import { dayFromIso } from '../lib/dates.js';
 import { Icon } from '../components/Icon.jsx';
 import { MasteryBar, Legend } from '../components/Shared.jsx';
+import { Logo } from '../components/Logo.jsx';
+import { RankBadge, RankMeter } from '../components/Game.jsx';
+import { DAILY_GOAL, xpToday, stickerCount } from '../lib/game.js';
+import { STICKERS, STAMP_AT } from '../lib/stickers.js';
 
-const STAMP_AT = 0.8; // a stop is stamped once 80% of its words are secure
 const DAY_LABELS = ['一', '二', '三', '四', '五', '六', '日'];
 
 function paceText(p, newPerDay) {
@@ -73,8 +76,28 @@ export function Home() {
     return list;
   }, [cov]);
 
+  const gotXp = xpToday(st, today);
+  const goalPct = Math.min(100, Math.round((100 * gotXp) / DAILY_GOAL));
+
   return (
     <>
+      <header class="home-head">
+        <div class="hh-brand">
+          <Logo size={64} />
+          <p class="hh-tag">一字一站，游遍 H1 华文<span>One word at a time, all the way to the exam.</span></p>
+        </div>
+        <a class="hh-rank" href="#/stickers" aria-label="查看等级与贴纸册 Open ranks and sticker book">
+          <RankBadge index={st.game.rank} size={52} />
+          <div class="grow">
+            <RankMeter xp={st.game.xp} compact />
+            <div class="hh-sub small">
+              <span class="hh-goal">{gotXp >= DAILY_GOAL ? <>今日 <b class="tnum">{gotXp}</b> XP · 目标达成 ✓</> : <>今日 <b class="tnum">{gotXp}</b>/{DAILY_GOAL} XP</>} <i class="dgoal"><i style={{ width: `${goalPct}%` }} /></i></span>
+              <span class="hh-stk"><Icon name="star" /> 贴纸 <b class="tnum">{stickerCount(st)}</b>/{STICKERS.length}</span>
+            </div>
+          </div>
+        </a>
+      </header>
+
       <div class="page-head">
         <h1>今日行程</h1>
         <div class="en">Today's trip{examDays != null && examDays >= 0 ? ` · ${examDays} days to the exam` : ''}</div>

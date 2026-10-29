@@ -1,8 +1,19 @@
 import { useEffect, useState } from 'preact/hooks';
 import { defaultState, sanitize } from './progress.js';
+import { awardStickers } from './game.js';
+import { VOCAB } from './vocab.js';
+import { dayNumber } from './dates.js';
 
 const KEY = 'h1vs:v2';
-let state = load();
+// Every state change is followed by a sticker check, so rewards never depend on which screen caused it.
+function settle(s) {
+  try {
+    return awardStickers(s, VOCAB, dayNumber());
+  } catch {
+    return s;
+  }
+}
+let state = settle(load());
 const listeners = new Set();
 let timer = null;
 let storageOk = true;
@@ -33,13 +44,13 @@ export const storageWorks = () => storageOk;
 
 /** update(fn): fn receives the current state and returns the next one. */
 export function update(fn) {
-  state = fn(state);
+  state = settle(fn(state));
   persist();
   listeners.forEach((l) => l(state));
 }
 
 export function replaceState(raw) {
-  state = sanitize(raw);
+  state = settle(sanitize(raw));
   persist();
   listeners.forEach((l) => l(state));
 }
