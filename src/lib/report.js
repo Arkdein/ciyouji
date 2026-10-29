@@ -1,6 +1,7 @@
 import { coverage, accuracy } from './stats.js';
 import { daysThisWeek, effectiveStreak } from './streak.js';
 import { isoFromDay, dayFromIso } from './dates.js';
+import { writingSummary } from './writing.js';
 
 /** Everything the teacher sees, in one small object. */
 export function summarise(state, vocab, strands, today) {
@@ -30,6 +31,7 @@ export function summarise(state, vocab, strands, today) {
     examDays,
     lists: strands.map((s) => ({ id: s.id, num: s.num, cn: s.cn, ...(byStrand[s.id] || { new: 0, learning: 0, reviewing: 0, secure: 0, total: 0 }) })),
     weak,
+    write: writingSummary(state, today),
   };
 }
 
@@ -45,6 +47,7 @@ export function progressCode(s) {
     s.date, s.cls, s.idx, s.streak, s.daysWeek, s.daysTotal, s.acc7 ?? '', s.secure, s.reviewing, s.learning, s.unseen,
     s.lists.map((l) => `${l.secure}/${l.total}`).join(','),
     s.weak.join(''),
+    `W${s.write.started}/${s.write.secure}/${s.write.acc7 ?? ''}`,
   ].join('|');
   return `H1VS1|${body}|${checksum(body)}`;
 }
@@ -71,6 +74,10 @@ export function formFields(s, entries) {
     unseen: s.unseen,
     lists: listsText(s),
     weak: s.weak.join('、'),
+    writeStarted: s.write.started,
+    writeSecure: s.write.secure,
+    writeAcc7: s.write.acc7 ?? '',
+    writeWeak: s.write.weak.join('、'),
     code: progressCode(s),
   };
   const out = {};

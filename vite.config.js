@@ -9,7 +9,7 @@ export default defineConfig({
     preact(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['icons/*.png', 'icons/icon.svg', 'config.json', 'audio/manifest.json'],
+      includeAssets: ['icons/*.png', 'icons/icon.svg', 'config.json', 'audio/manifest.json', 'stroke-manifest.json'],
       manifest: {
         name: '词游记 H1 Chinese Word Journey',
         short_name: '词游记',
@@ -28,13 +28,19 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,json}'],
-        globIgnores: ['audio/*.mp3'],
+        globIgnores: ['audio/*.mp3', 'strokes/*.json', 'strokes/*.TXT'],
         navigateFallback: 'index.html',
         runtimeCaching: [
           {
             urlPattern: ({ url }) => url.pathname.includes('/audio/') && url.pathname.endsWith('.mp3'),
             handler: 'CacheFirst',
             options: { cacheName: 'audio', expiration: { maxEntries: 1500 }, rangeRequests: true, cacheableResponse: { statuses: [200] } },
+          },
+          {
+            // Stroke-order data: fetched as each character is used; "Save all" in Progress pre-loads the lot.
+            urlPattern: ({ url }) => url.pathname.includes('/strokes/') && url.pathname.endsWith('.json'),
+            handler: 'CacheFirst',
+            options: { cacheName: 'strokes', expiration: { maxEntries: 1200 }, cacheableResponse: { statuses: [200] } },
           },
           {
             urlPattern: ({ url }) => url.origin === 'https://fonts.googleapis.com' || url.origin === 'https://fonts.gstatic.com',

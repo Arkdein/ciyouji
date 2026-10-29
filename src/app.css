@@ -78,7 +78,7 @@ a { color: var(--ink); }
   .shell { grid-template-columns: 1fr; }
   .rail { display: none; }
   .main { padding: 20px 16px 96px; }
-  .tabbar { display: grid; grid-template-columns: repeat(4, 1fr); position: fixed; bottom: 0; left: 0; right: 0; z-index: 20; background: var(--surface); border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom); }
+  .tabbar { display: grid; grid-template-columns: repeat(5, 1fr); position: fixed; bottom: 0; left: 0; right: 0; z-index: 20; background: var(--surface); border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom); }
   .tabbar a { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 9px 0 8px; text-decoration: none; color: var(--text-soft); font-size: 11px; }
   .tabbar a .icon { font-size: 21px; }
   .tabbar a.active { color: var(--mint-strong); font-weight: 600; }
@@ -197,7 +197,7 @@ a { color: var(--ink); }
 .intro-card .hw .t { font-family: var(--font-display); font-size: 40px; color: var(--ink-strong); line-height: 1.1; }
 .intro-card .def { font-size: 18px; line-height: 1.7; }
 .intro-card mark { background: var(--good-bg); color: var(--mint-strong); border-radius: 3px; padding: 0 2px; font-weight: 700; }
-.sticky-bottom { margin-top: auto; padding-top: 18px; display: flex; justify-content: flex-end; }
+.sticky-bottom { margin-top: auto; padding-top: 14px; padding-bottom: 14px; position: sticky; bottom: 0; background: var(--bg); display: flex; justify-content: flex-end; }
 .sticky-bottom .btn { min-width: 160px; }
 .summary { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px; margin: auto 0; }
 .summary h1 { font-size: 34px; color: var(--ink-strong); }
@@ -325,3 +325,23 @@ body::before {
 .stop.dest .tile { border-style: dashed; box-shadow: none; background: transparent; }
 .stop.dest .flag { width: 36px; height: 36px; margin-top: 8px; border-radius: 50%; background: var(--mint-strong); color: var(--on-accent); display: flex; align-items: center; justify-content: center; font-size: 18px; }
 @media (max-width: 420px) { .stop { grid-template-columns: 46px 1fr; gap: 10px; } .stop::before { left: 22px; } .stop .stamp { width: 46px; height: 46px; } .stop .stamp b { font-size: 12px; } .stop .pin { width: 30px; height: 30px; } }
+
+/* ============ Handwriting ============ */
+.pad { position: relative; margin: 0 auto; border: 1.5px solid var(--line-strong); border-radius: 10px; background-color: var(--surface); line-height: 0; touch-action: none; user-select: none; -webkit-user-select: none; overflow: hidden;
+  background-image:
+    linear-gradient(to right, transparent calc(50% - 0.5px), var(--line) calc(50% - 0.5px), var(--line) calc(50% + 0.5px), transparent calc(50% + 0.5px)),
+    linear-gradient(to bottom, transparent calc(50% - 0.5px), var(--line) calc(50% - 0.5px), var(--line) calc(50% + 0.5px), transparent calc(50% + 0.5px)),
+    linear-gradient(to top right, transparent calc(50% - 0.5px), var(--line) calc(50% - 0.5px), var(--line) calc(50% + 0.5px), transparent calc(50% + 0.5px)),
+    linear-gradient(to bottom right, transparent calc(50% - 0.5px), var(--line) calc(50% - 0.5px), var(--line) calc(50% + 0.5px), transparent calc(50% + 0.5px)); }
+.pad svg { touch-action: none; display: block; }
+.write-ctx { display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; }
+.write-ctx .word { font-family: var(--font-display); font-size: 38px; letter-spacing: 0.08em; color: var(--ink-strong); line-height: 1.2; }
+.write-ctx .word .tgt { font-weight: 400; color: var(--seal); border-bottom: 3px solid var(--seal); }
+.write-ctx .word .blank-ch { color: var(--seal); }
+.write-ctx .def { font-size: 16px; max-width: 30em; }
+.charwall { display: flex; flex-wrap: wrap; gap: 8px; }
+.cw { width: 46px; height: 46px; display: flex; align-items: center; justify-content: center; border-radius: 8px; border: 1.5px solid var(--line-strong); background: var(--surface); font-family: var(--font-display); font-size: 25px; color: var(--ink-strong); text-decoration: none; }
+a.cw:hover { border-color: var(--mint-strong); }
+.cw.learning { border-color: var(--gold); }
+.cw.reviewing { border-color: var(--ink); }
+.cw.secure { border-color: var(--mint-strong); background: var(--good-bg); }

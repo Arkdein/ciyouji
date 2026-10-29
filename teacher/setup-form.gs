@@ -30,6 +30,10 @@ var FIELDS = [
   ['unseen', 'Not yet started', false],
   ['lists', 'Per-list secure/total', true],
   ['weak', 'Weakest words', true],
+  ['writeStarted', 'Characters started (writing)', false],
+  ['writeSecure', 'Characters secure (writing)', false],
+  ['writeAcc7', 'Writing accuracy last 7 days (%)', false],
+  ['writeWeak', 'Most-missed characters (writing)', true],
   ['code', 'Progress code', true]
 ];
 

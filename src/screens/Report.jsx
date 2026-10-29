@@ -99,6 +99,18 @@ export function Report() {
       </div>
 
       <div class="card">
+        <h2>书写练习</h2>
+        <div class="small soft" style={{ marginBottom: 8 }}>Handwriting (stroke-checked, from memory)</div>
+        <div class="meta">
+          <div><b class="tnum">{sum.write.started}</b><span>已开始的字 Characters started</span></div>
+          <div><b class="tnum">{sum.write.secure}</b><span>已掌握 Secure</span></div>
+          <div><b class="tnum">{sum.write.acc7 == null ? '—' : `${sum.write.acc7}%`}</b><span>近7天写对率 7-day accuracy ({sum.write.attempts7})</span></div>
+        </div>
+        <div class="small soft" style={{ margin: '10px 0 4px' }}>最常写错的字 Most-missed characters</div>
+        <div style={{ fontSize: 22 }}>{sum.write.weak.length ? sum.write.weak.join('　') : '暂时没有 None yet'}</div>
+      </div>
+
+      <div class="card">
         <div class="small soft" style={{ marginBottom: 6 }}>进度代码 Progress code</div>
         <div class="code">{code}</div>
       </div>

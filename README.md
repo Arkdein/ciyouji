@@ -10,6 +10,7 @@ Everything runs in the student's browser. There is no server, no account and no 
 - **Mastery ladder**: meaning → word → cloze → typed recall → dictation. Words only count as *secure* after they survive longer gaps (1, 2, 4, 8, 16 days).
 - **Forgiving streak**: weekly goal of 4 days, banked rest days, no punishment for a missed day.
 - **Exam countdown**: set the exam date; the app tells students if they are on pace and switches to revision-only for the last 14 days.
+- **Handwriting (书写)**: students trace new characters with a finger (stroke order and direction are checked), then write them from memory on later days. Characters come from words the student has already met. Writing has its own spaced-repetition track, never blocks a word from becoming secure, and appears in the teacher report.
 - **Offline**: install to the home screen; "保存全部音频 Save all audio" under Progress caches the pronunciations.
 - **Report**: Print / Save as PDF, Send to teacher (Google Form), or Copy code.
 
@@ -41,6 +42,16 @@ npm run build      # outputs dist/
 - `src/data/vocab.json`: entries `{id, t:"w"|"i", s:"s1".."s9"|"idiom", tier, w, py, cn, en, ex}`.
 - `src/data/news.json`: snippets. Keep them **paraphrased** with a source line. Do not paste article text.
 - After changing words or example sentences, regenerate audio (below). Cards are keyed by headword, so a word appearing in two lists is practised once.
+
+## Handwriting data
+
+Stroke-order data comes from [hanzi-writer-data](https://github.com/chanind/hanzi-writer-data) (derived from Make Me a Hanzi; **Arphic Public License**, text kept in `public/strokes/ARPHICPL.TXT`). The pad itself is [Hanzi Writer](https://hanziwriter.org) (MIT). Only the 747 characters used in the word lists are bundled (about 3 MB). After adding words, run:
+
+```bash
+node scripts/copy-stroke-data.mjs
+```
+
+Hanzi Writer checks that each stroke is drawn in the right order and direction and roughly the right shape. It does not recognise free-form handwriting, and short strokes (dots, small hooks) can be fiddly on a phone, so the pad is set to be forgiving: after three misses on one stroke it is accepted.
 
 ## Audio
 

@@ -82,6 +82,7 @@ export function Words({ strand }) {
                   <div class="exs"><span>{it.ex}</span><AudioBtn item={it} part="ex" /></div>
                   <div class="row small soft" style={{ justifyContent: 'space-between' }}>
                     <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}><i class={`dot ${status}`} /> {STATUS_LABEL[status]}</span>
+                    <a class="btn ghost small" href={`#/write/word/${it.id}`}>写一写 Write</a>
                     {it.src && <span class="src">来源 {it.src}</span>}
                   </div>
                 </article>

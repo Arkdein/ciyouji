@@ -3,6 +3,7 @@ import { useStore, update, replaceState, resetState, getState, storageWorks } fr
 import { useToday, go } from '../lib/hooks.js';
 import { STRANDS } from '../lib/vocab.js';
 import { cacheAllAudio, clipCount, loadAudioManifest } from '../lib/audio.js';
+import { cacheAllStrokes } from '../lib/strokes.js';
 import { isoFromDay, dayFromIso } from '../lib/dates.js';
 import { Icon } from '../components/Icon.jsx';
 
@@ -20,10 +21,14 @@ export function Progress() {
 
   const saveAudio = async () => {
     await loadAudioManifest();
-    if (!clipCount()) return setAudioMsg('这个版本没有录音文件，将使用设备自带的语音。 No recorded audio in this build; the device voice is used instead.');
-    setAudioMsg('下载中 Downloading… 0%');
-    const n = await cacheAllAudio((d, t) => setAudioMsg(`下载中 Downloading… ${Math.round((100 * d) / t)}%`));
-    setAudioMsg(`完成：${n} 个音频已保存，离线也能听。 Done: ${n} clips saved for offline use.`);
+    let clips = 0;
+    if (clipCount()) {
+      setAudioMsg('下载音频 Downloading audio… 0%');
+      clips = await cacheAllAudio((d, t) => setAudioMsg(`下载音频 Downloading audio… ${Math.round((100 * d) / t)}%`));
+    }
+    setAudioMsg('下载笔顺 Downloading stroke data… 0%');
+    const chars = await cacheAllStrokes((d, t) => setAudioMsg(`下载笔顺 Downloading stroke data… ${Math.round((100 * d) / t)}%`));
+    setAudioMsg(`完成：${clips} 个音频、${chars} 个字的笔顺已保存，离线可用。 Done: ${clips} audio clips and ${chars} characters saved for offline use.`);
   };
 
   const downloadBackup = () => {
@@ -116,9 +121,9 @@ export function Progress() {
               ))}
             </div>
           </div>
-          <div class="field">离线音频 Offline audio
-            <div class="row"><button class="btn ghost small" onClick={saveAudio}>保存全部音频 Save all audio</button><span class="small soft">{audioMsg}</span></div>
-            <span class="small soft">应用本身离线也能用；音频需要先保存一次。 The app works offline; audio only plays offline after you save it once while connected.</span>
+          <div class="field">离线使用 Offline use
+            <div class="row"><button class="btn ghost small" onClick={saveAudio}>保存音频与笔顺 Save audio and stroke data</button><span class="small soft">{audioMsg}</span></div>
+            <span class="small soft">应用本身离线也能用；音频和笔顺要先保存一次。 The app works offline; audio and handwriting data only work offline after you save them once while connected.</span>
           </div>
         </div>
       </section>

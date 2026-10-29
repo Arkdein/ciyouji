@@ -1,5 +1,6 @@
 import { newCard, applyReview } from './srs.js';
 import { newStreak, recordStudyDay } from './streak.js';
+import { WRITE_STUDY_DAY_ANSWERS } from './writing.js';
 
 export const STUDY_DAY_ANSWERS = 8; // a day counts once this many answers are in, or a session is finished
 const KEEP_LOG_DAYS = 120;
@@ -16,6 +17,7 @@ export function defaultState() {
     streak: newStreak(),
     intro: { day: 0, n: 0 }, // new words introduced today
     sent: null, // ISO timestamp of last submission to the teacher
+    writing: { cards: {}, log: {}, intro: { day: 0, n: 0 } }, // handwriting track, keyed by character
   };
 }
 
@@ -59,6 +61,19 @@ export function sanitize(raw) {
     }
   }
   if (raw.streak) d.streak = { count: num(raw.streak.count), last: Number.isFinite(raw.streak.last) ? raw.streak.last : null, freezes: Math.min(2, Math.max(0, num(raw.streak.freezes, 1))) };
+  if (raw.writing && typeof raw.writing === 'object') {
+    const w = raw.writing;
+    if (w.cards && typeof w.cards === 'object') {
+      for (const [k, c] of Object.entries(w.cards)) {
+        if (!c || typeof c !== 'object' || [...k].length !== 1) continue;
+        d.writing.cards[k] = { b: Math.min(5, Math.max(0, num(c.b))), due: num(c.due), seen: num(c.seen), ok: num(c.ok), bad: num(c.bad), lapses: num(c.lapses), hint: num(c.hint), last: num(c.last) };
+      }
+    }
+    if (w.log && typeof w.log === 'object') {
+      for (const [k, v] of Object.entries(w.log)) if (Array.isArray(v) && Number.isFinite(+k)) d.writing.log[k] = [num(v[0]), num(v[1])];
+    }
+    if (w.intro) d.writing.intro = { day: num(w.intro.day), n: num(w.intro.n) };
+  }
   if (raw.intro) d.intro = { day: num(raw.intro.day), n: num(raw.intro.n) };
   if (typeof raw.sent === 'string') d.sent = raw.sent.slice(0, 40);
   return d;
@@ -92,5 +107,32 @@ export function answerCard(state, key, outcome, today) {
   for (const k of Object.keys(log)) if (+k < today - KEEP_LOG_DAYS) delete log[k];
   let next = { ...state, cards: { ...state.cards, [key]: applyReview(card, outcome, today) }, log };
   if (log[today][0] >= STUDY_DAY_ANSWERS) next = markStudied(next, today);
+  return next;
+}
+
+// ---- Handwriting track -------------------------------------------------------------
+
+export function writtenIntroducedToday(state, today) {
+  return state.writing.intro.day === today ? state.writing.intro.n : 0;
+}
+
+/** First time a character is watched and traced: create its card (due tomorrow). */
+export function writeIntroduce(state, ch, today) {
+  if (state.writing.cards[ch]) return state;
+  const w = state.writing;
+  const base = w.intro.day === today ? w.intro.n : 0;
+  const card = { ...newCard(today), due: today + 1, seen: 1 };
+  return { ...state, writing: { ...w, cards: { ...w.cards, [ch]: card }, intro: { day: today, n: base + 1 } } };
+}
+
+/** Record one from-memory attempt. */
+export function writeAnswer(state, ch, outcome, today) {
+  const w = state.writing;
+  const card = w.cards[ch] || newCard(today);
+  const e = w.log[today] || [0, 0];
+  const log = { ...w.log, [today]: [e[0] + 1, e[1] + (outcome === 'again' ? 0 : 1)] };
+  for (const k of Object.keys(log)) if (+k < today - KEEP_LOG_DAYS) delete log[k];
+  let next = { ...state, writing: { ...w, cards: { ...w.cards, [ch]: applyReview(card, outcome, today) }, log } };
+  if (log[today][0] >= WRITE_STUDY_DAY_ANSWERS) next = markStudied(next, today);
   return next;
 }

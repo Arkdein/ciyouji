@@ -4,7 +4,8 @@ import { useToday, go } from '../lib/hooks.js';
 import { VOCAB, STRANDS, UNIQUE_TOTAL } from '../lib/vocab.js';
 import { coverage, paceInfo } from '../lib/stats.js';
 import { buildQueue, SESSION_SIZE, REVISION_DAYS } from '../lib/session.js';
-import { introducedToday } from '../lib/progress.js';
+import { introducedToday, writtenIntroducedToday } from '../lib/progress.js';
+import { buildWriteQueue } from '../lib/writing.js';
 import { weekDots, effectiveStreak, WEEKLY_GOAL, daysThisWeek } from '../lib/streak.js';
 import { dayFromIso } from '../lib/dates.js';
 import { Icon } from '../components/Icon.jsx';
@@ -42,6 +43,10 @@ export function Home() {
     return { total: q.length, fresh: q.filter((e) => e.intro).length, reviews: q.filter((e) => !e.intro).length };
   }, [st.cards, st.intro, st.settings, examDays, today]);
 
+  const writePlan = useMemo(
+    () => buildWriteQueue({ vocab: VOCAB, cards: st.cards, wcards: st.writing.cards, today, introducedToday: writtenIntroducedToday(st, today) }).length,
+    [st.cards, st.writing, today],
+  );
   const dueAll = Object.values(st.cards).filter((c) => c.due <= today).length;
   const weakCount = Object.values(st.cards).filter((c) => c.b < 5 && (c.bad > 0 || c.lapses > 0)).length;
   const streak = effectiveStreak(st.streak, today);
@@ -90,6 +95,7 @@ export function Home() {
             <button class="btn primary" disabled={plan.total === 0} onClick={() => go('#/session/daily')}>
               {doneToday ? '再走一程 Another leg' : '出发 Set off'}
             </button>
+            <button class="btn ghost" onClick={() => go('#/write')}><Icon name="pen" /> 写字 Write{writePlan > 0 ? ` (${writePlan})` : ''}</button>
             {weakCount > 0 && (
               <button class="btn ghost" onClick={() => go('#/session/weak')}>重访弱项 Weak words ({weakCount})</button>
             )}

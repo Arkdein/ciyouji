@@ -9,10 +9,12 @@ import { Words } from './screens/Words.jsx';
 import { News } from './screens/News.jsx';
 import { Progress } from './screens/Progress.jsx';
 import { Report } from './screens/Report.jsx';
+import { Write, WriteRun } from './screens/Write.jsx';
 
 const NAV = [
   { name: 'home', href: '#/', icon: 'home', cn: '行程', en: 'Trip' },
   { name: 'words', href: '#/words/s1', icon: 'book', cn: '词汇库', en: 'Word bank' },
+  { name: 'write', href: '#/write', icon: 'pen', cn: '书写', en: 'Write' },
   { name: 'news', href: '#/news/s1', icon: 'news', cn: '时事', en: 'News' },
   { name: 'progress', href: '#/progress', icon: 'chart', cn: '进度', en: 'Progress' },
 ];
@@ -31,6 +33,7 @@ export function App() {
     else document.documentElement.removeAttribute('data-theme');
   }, [st.settings.theme]);
 
+  if (route.name === 'write' && route.mode) return <WriteRun key={`${route.mode}/${route.arg}`} mode={route.mode} arg={route.arg} />;
   if (route.name === 'session') return <Session mode={route.mode} strand={route.strand} />;
 
   const nextTheme = { system: 'light', light: 'dark', dark: 'system' }[st.settings.theme];
@@ -64,6 +67,7 @@ export function App() {
       <main class="main" id="main">
         {route.name === 'home' && <Home />}
         {route.name === 'words' && <Words strand={route.strand} />}
+        {route.name === 'write' && <Write />}
         {route.name === 'news' && <News strand={route.strand} />}
         {route.name === 'progress' && <Progress />}
         {route.name === 'report' && <Report />}
